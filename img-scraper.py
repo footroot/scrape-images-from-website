@@ -9,11 +9,11 @@ from selenium import webdriver
 
 
 def get_content_from_url(url):
-   driver = webdriver.Chrome()  # add "executable_path=" if driver not in running directory
+   driver = webdriver.Chrome("/nix/path/to/webdriver/executable")  # add "executable_path=" if driver not in running directory
    driver.get(url)
    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
    page_content = driver.page_source
-   driver.quit()  # We do not need the browser instance for further steps.
+   # driver.quit()   We do not need the browser instance for further steps.
    return page_content
 
 
@@ -43,7 +43,7 @@ def get_and_save_image_to_file(image_url, output_dir):
 
 
 def main():
-   url = "https://your.url/here?yes=brilliant"
+   url = "https://www.mytaller.info"
    content = get_content_from_url(url)
    image_urls = parse_image_urls(
        content=content, classes="blog-card__link", location="img", source="src",
@@ -52,7 +52,7 @@ def main():
 
    for image_url in image_urls:
        get_and_save_image_to_file(
-           image_url, output_dir=pathlib.Path("nix/path/to/test"),
+           image_url, output_dir=pathlib.Path("D:\git_portafolio\scrape-images-from-website\images"),
        )
 
 
